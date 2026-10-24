@@ -1,5 +1,10 @@
 import prisma from "../database/client.js";
-import sanitizeHtml from "sanitize-html";
+
+import createDOMPurify from "dompurify";
+import { JSDOM } from "jsdom";
+
+const window = new JSDOM("").window;
+const DOMPurify = createDOMPurify(window);
 
 const controller = {};
 
@@ -18,14 +23,13 @@ controller.retrieveComments = async function (req, res) {
 
 controller.createComment = async function (req, res) {
   try {
-    // Sanitiza a entrada, removendo tags perigosas como <script>, <img> e atributos como onerror
-    const cleanContent = sanitizeHtml(req.body?.content ?? "", {
-      allowedTags: [], // Deixe vazio para forçar apenas texto puro
-      allowedAttributes: {},
-    });
+    // Sanitização com DOMPurify
+    const comment = DOMPurify.sanitize(req.body?.content ?? "");
 
+    // OWASP Top 10:2025 A05 - Injeção (XSS armazenado):
+    // o conteúdo é persistido sem sanitização e depois interpretado como HTML em XssChallenge.jsx.
     await prisma.xssComment.create({
-      data: { content: cleanContent },
+      data: { content: comment },
     });
 
     res.status(201).end();
