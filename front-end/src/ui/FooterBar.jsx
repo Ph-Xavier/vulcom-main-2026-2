@@ -1,7 +1,7 @@
-import React from 'react'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
-import CoffeeIcon from '@mui/icons-material/Coffee'
+import React from "react";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import CoffeeIcon from "@mui/icons-material/Coffee";
 
 export default function FooterBar() {
   return (
@@ -9,23 +9,26 @@ export default function FooterBar() {
       variant="dense"
       component="footer"
       sx={{
-        position: 'fixed',
+        position: "fixed",
         bottom: 0,
-        width: '100vw',
-        justifyContent: 'center',
-        backgroundColor: 'action.disabledBackground'
+        width: "100vw",
+        justifyContent: "center",
+        backgroundColor: "action.disabledBackground",
       }}
     >
       <Typography
         variant="caption"
         sx={{
-          '& a': {
-            color: 'secondary.light'
-          }
+          "& a": {
+            color: "secondary.light",
+          },
         }}
       >
-        Desenvolvido e mantido com <CoffeeIcon fontSize="small" /> por <a href="mailto:professor@faustocintra.com.br">Prof. Fausto Cintra</a>
+        Desenvolvido e mantido com <CoffeeIcon fontSize="small" /> por{" "}
+        <a href="mailto:pedro.constancio@aluno.cps.sp.gov.br">
+          Pedro Henrique Xavier Constancio
+        </a>
       </Typography>
     </Toolbar>
-  )
+  );
 }
